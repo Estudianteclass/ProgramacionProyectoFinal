@@ -30,6 +30,7 @@ public class ClienteDAO {
         return conn;
 
     }
+
 public Cliente read(String read) {
         Cliente buscar = null;
         if (read != null && !read.isBlank()) {
@@ -87,7 +88,7 @@ public Cliente read(String read) {
             String sql = "DELETE FROM clientes WHERE dni LIKE ?";
             borrar = read(id);
             try ( PreparedStatement sentencia = conexion.prepareStatement(sql)) {
-
+    
                 sentencia.setString(1, id);
                 sentencia.executeUpdate();
 
