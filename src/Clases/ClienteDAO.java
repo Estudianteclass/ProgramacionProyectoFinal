@@ -75,7 +75,7 @@ public Cliente read(String read) {
                 sentencia.executeUpdate();
 
             } catch (SQLException ex) {
-                System.out.println("Error al actualizar un alumno.");
+                System.out.println("Error al actualizar un cliente.");
             }
         }
 
