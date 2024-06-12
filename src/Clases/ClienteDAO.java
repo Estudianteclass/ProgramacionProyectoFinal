@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 
 public class ClienteDAO {
 
-    static final String URL = "jdbc:mysql://localhost:3306/empresa";
+    static final String URL = "jdbc:mysql://localhost:3306/gimnasio";
     static final String USER = "root";
     static final String CLAVE = "";
     private Connection conexion;
