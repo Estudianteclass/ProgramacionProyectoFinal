@@ -60,7 +60,7 @@ public Cliente read(String read) {
     public void update(String id) {
         Cliente cli = read(id);
         if (cli != null) {
-            String sql = "UPDATE Clientes " + "SET monitor=?, direccion=?, clase=?" + "WHERE dni = ?";
+            String sql = "UPDATE Clientes " + "SET monitor=?,SET direccion=?,SET clase=?" + "WHERE dni = ?";
 
             try (PreparedStatement sentencia = conexion.prepareStatement(sql)) {
 
