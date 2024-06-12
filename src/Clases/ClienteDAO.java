@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 
 public class ClienteDAO {
 
-    static final String URL = "jdbc:mysql://localhost:3306/empresa";
+    static final String URL = "jdbc:mysql://localhost:3306/gimnasio";
     static final String USER = "root";
     static final String CLAVE = "";
     private Connection conexion;
@@ -13,6 +13,18 @@ public class ClienteDAO {
     public ClienteDAO() {
 
         this.conexion = conectar();
+    }
+    public Connection conectar() {
+        Connection conn = null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = (Connection) DriverManager.getConnection(URL, USER, CLAVE);
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        return conn;
+
     }
 public Cliente read(String read) {
         Cliente buscar = null;
@@ -52,5 +64,21 @@ public Cliente read(String read) {
         return conn;
 
     }
+  public Cliente delete(String id) {
+        Cliente borrar = null;
 
+        if (id != null && !id.isBlank()) {
+            String sql = "DELETE FROM clientes WHERE dni LIKE ?";
+            borrar = read(id);
+            try ( PreparedStatement sentencia = conexion.prepareStatement(sql)) {
+
+                sentencia.setString(1, id);
+                sentencia.executeUpdate();
+
+            } catch (SQLException ex) {
+                System.out.println("Codigo de error: " + ex.getErrorCode() + ", " + ex.getMessage());
+            }
+        }
+        return borrar;
+    }
 }
