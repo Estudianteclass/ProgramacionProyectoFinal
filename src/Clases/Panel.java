@@ -9,12 +9,12 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class Panel extends javax.swing.JFrame {
-
+    
     public Panel() {
         initComponents();
         cargar();
     }
-
+    
     private void cargar() {
         datos = gestion.mostrarTodos();
         modelo.setNumRows(0);
@@ -23,11 +23,11 @@ public class Panel extends javax.swing.JFrame {
         }
         tabla.setModel(modelo);
     }
-    String[] columnas = {"DNI", "Nombre", "Apellidos", "Fecha de alta", "Dirección", "Monitor", "Clase"};
+    String[] columnas = {"DNI", "Nombre", "Apellidos", "Dirección", "Fecha de alta", "Monitor", "Clase"};
     DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
     ClienteDAO gestion = new ClienteDAO();
     ArrayList<Object[]> datos = new ArrayList<>();
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
@@ -177,14 +177,14 @@ public class Panel extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(inserta)
+                        .addComponent(inserta, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(58, 58, 58)
+                        .addComponent(busca, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(79, 79, 79)
-                        .addComponent(busca)
-                        .addGap(79, 79, 79)
-                        .addComponent(actualiza)
-                        .addGap(99, 99, 99)
-                        .addComponent(borra)
-                        .addGap(130, 130, 130))))
+                        .addComponent(actualiza, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(84, 84, 84)
+                        .addComponent(borra, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(108, 108, 108))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -238,7 +238,7 @@ public class Panel extends javax.swing.JFrame {
     }// </editor-fold>                        
 
     private void buscaActionPerformed(java.awt.event.ActionEvent evt) {                                      
-
+        
 
     }                                     
 
@@ -251,16 +251,27 @@ public class Panel extends javax.swing.JFrame {
     }                                        
 
     private void insertaMouseClicked(java.awt.event.MouseEvent evt) {                                     
-       //String dni, String nombre, String apellidos, String nomEntrenador, String direccion, String clase, Date fechaInscripcion
-        
-         Cliente inserta = new Cliente(campoDNI.getText(),
-               campoNombre.getText(), campoApellidos.getText(), campoMonitor.getText(),
-                campoDireccion.getText(), 
-                campoClase.getText(), Date.valueOf(campoFecha.getText()));
+        //String dni, String nombre, String apellidos, String nomEntrenador, String direccion, String clase, Date fechaInscripcion
 
-        if (gestion.create(inserta)==true) {
+        Cliente inserta = new Cliente(campoDNI.getText(),
+                campoNombre.getText(), campoApellidos.getText(), campoDireccion.getText(),
+                Date.valueOf(campoFecha.getText()),
+                campoMonitor.getText(),
+                campoClase.getText());
+        
+        if (gestion.create(inserta) == true) {
             mensajes.setText("Cliente insertado");
             cargar();
+            campoDNI.setText("");
+            campoNombre.setText("");
+            campoApellidos.setText("");
+            campoDireccion.setText("");
+            campoFecha.setText("");
+            campoMonitor.setText("");
+            campoClase.setText("");
+            mensajes.setText("Cliente insertado");
+        } else {
+            mensajes.setText("No se ha podido insertar el cliente");
         }
 
     }                                    
@@ -270,11 +281,11 @@ public class Panel extends javax.swing.JFrame {
     }                                        
 
     private void buscaMouseClicked(java.awt.event.MouseEvent evt) {                                   
-         Cliente buscar = gestion.read(campoDNI.getText());
+        Cliente buscar = gestion.read(campoDNI.getText());
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String alta = "";
         if (buscar != null) {
-
+            
             campoNombre.setText(buscar.getNombre());
             campoApellidos.setText(buscar.getApellidos());
             campoDireccion.setText(buscar.getDireccion());
@@ -282,28 +293,41 @@ public class Panel extends javax.swing.JFrame {
             campoFecha.setText(alta);
             campoMonitor.setText(buscar.getNomEntrenador());
             campoClase.setText(buscar.getClase());
+        } else {
+            mensajes.setText("Cliente no encontrado");
+            
         }
+        cargar();
     }                                  
 
     private void actualizaActionPerformed(java.awt.event.ActionEvent evt) {                                          
-       Cliente actualiza = new Cliente(campoDNI.getText(), campoMonitor.getText(),campoDireccion.getText(), campoClase.getText());
-       
-        if (gestion.update(actualiza.getIdCliente())!=null) {
+        Cliente actualiza = new Cliente(campoDNI.getText(), campoMonitor.getText(), campoDireccion.getText(), campoClase.getText());
+        boolean actualizar = gestion.update(actualiza);
+        if (actualizar != false) {
             mensajes.setText("Cliente actualizado");
-            cargar();
-        }else{
-        mensajes.setText("No se podido ha actualizar el cliente");
+            campoDNI.setText("");
+            campoNombre.setText("");
+            campoApellidos.setText("");
+            campoDireccion.setText("");
+            campoFecha.setText("");
+            campoMonitor.setText("");
+            campoClase.setText("");
+            
+        } else {
+            mensajes.setText("No se podido ha actualizar el cliente");
         }
-      
+        cargar();
+
     }                                         
 
     private void borraActionPerformed(java.awt.event.ActionEvent evt) {                                      
-       Boolean borrar=gestion.delete(campoDNI.getText());
-        if (borrar!=false) {
+        Boolean borrar = gestion.delete(campoDNI.getText());
+        if (borrar != false) {
             mensajes.setText("Cliente borrado");
+            campoDNI.setText("");
             cargar();
-        }else{
-         mensajes.setText("No se ha podido borrar el cliente.");
+        } else {
+            mensajes.setText("No se ha podido borrar el cliente.");
         }
     }                                     
 
