@@ -1,3 +1,5 @@
+package Clases;
+
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,7 +23,7 @@ public class Panel extends javax.swing.JFrame {
         }
         tabla.setModel(modelo);
     }
-    String[] columnas = {"DNI", "Nombre", "Apellidos", "Dirección", "Fecha de alta", "Monitor", "Clase"};
+    String[] columnas = {"DNI", "Nombre", "Apellidos", "Fecha de alta", "Dirección", "Monitor", "Clase"};
     DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
     ClienteDAO gestion = new ClienteDAO();
     ArrayList<Object[]> datos = new ArrayList<>();
@@ -53,7 +55,6 @@ public class Panel extends javax.swing.JFrame {
         mensajes = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
-        cargaTabla = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(800, 500));
@@ -138,13 +139,6 @@ public class Panel extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tabla);
 
-        cargaTabla.setText("Cargar tabla");
-        cargaTabla.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cargaTablaActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -152,17 +146,6 @@ public class Panel extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(cargaTabla)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(inserta)
-                        .addGap(73, 73, 73)
-                        .addComponent(busca)
-                        .addGap(55, 55, 55)
-                        .addComponent(actualiza)
-                        .addGap(29, 29, 29)
-                        .addComponent(borra)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 724, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(37, Short.MAX_VALUE))
@@ -174,15 +157,13 @@ public class Panel extends javax.swing.JFrame {
                             .addComponent(labelDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(campoMonitor, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(campoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(campoDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(campoDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(campoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campoDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campoDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campoMonitor, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(labelFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(labelApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -191,17 +172,23 @@ public class Panel extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(campoClase, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
                                     .addComponent(campoFecha)
-                                    .addComponent(campoApellidos))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(campoApellidos)))
+                            .addComponent(mensajes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(inserta)
+                        .addGap(79, 79, 79)
+                        .addComponent(busca)
+                        .addGap(79, 79, 79)
+                        .addComponent(actualiza)
+                        .addGap(99, 99, 99)
+                        .addComponent(borra)
+                        .addGap(130, 130, 130))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(mensajes, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(227, 227, 227))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(158, 158, 158))))
+                .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(158, 158, 158))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,9 +204,10 @@ public class Panel extends javax.swing.JFrame {
                         .addComponent(campoApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelNom)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(campoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(labelNom)
+                        .addComponent(campoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(labelFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(campoFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -231,7 +219,8 @@ public class Panel extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelMonitor)
-                    .addComponent(campoMonitor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(campoMonitor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(mensajes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -239,11 +228,8 @@ public class Panel extends javax.swing.JFrame {
                     .addComponent(actualiza)
                     .addComponent(inserta)
                     .addComponent(busca)
-                    .addComponent(borra)
-                    .addComponent(cargaTabla))
-                .addGap(18, 18, 18)
-                .addComponent(mensajes, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(47, Short.MAX_VALUE))
+                    .addComponent(borra))
+                .addContainerGap(98, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1);
@@ -265,10 +251,16 @@ public class Panel extends javax.swing.JFrame {
     }                                        
 
     private void insertaMouseClicked(java.awt.event.MouseEvent evt) {                                     
-        Cliente inserta = new Cliente(campoDNI.getText(), campoNombre.getText(), campoApellidos.getText(), campoDireccion.getText(), Date.valueOf(campoFecha.getText()), campoMonitor.getText(), campoClase.getText());
+       //String dni, String nombre, String apellidos, String nomEntrenador, String direccion, String clase, Date fechaInscripcion
+        
+         Cliente inserta = new Cliente(campoDNI.getText(),
+               campoNombre.getText(), campoApellidos.getText(), campoMonitor.getText(),
+                campoDireccion.getText(), 
+                campoClase.getText(), Date.valueOf(campoFecha.getText()));
 
         if (gestion.create(inserta)==true) {
             mensajes.setText("Cliente insertado");
+            cargar();
         }
 
     }                                    
@@ -278,7 +270,7 @@ public class Panel extends javax.swing.JFrame {
     }                                        
 
     private void buscaMouseClicked(java.awt.event.MouseEvent evt) {                                   
-        Cliente buscar = gestion.read(campoDNI.getText());
+         Cliente buscar = gestion.read(campoDNI.getText());
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String alta = "";
         if (buscar != null) {
@@ -286,37 +278,35 @@ public class Panel extends javax.swing.JFrame {
             campoNombre.setText(buscar.getNombre());
             campoApellidos.setText(buscar.getApellidos());
             campoDireccion.setText(buscar.getDireccion());
-            alta = dateFormat.format(buscar.getFechaAlta());
+            alta = dateFormat.format(buscar.getFechaInscripcion());
             campoFecha.setText(alta);
-            campoMonitor.setText(buscar.getMonitor());
+            campoMonitor.setText(buscar.getNomEntrenador());
             campoClase.setText(buscar.getClase());
         }
     }                                  
 
     private void actualizaActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
+       Cliente actualiza = new Cliente(campoDNI.getText(), campoMonitor.getText(),campoDireccion.getText(), campoClase.getText());
+       
+        if (gestion.update(actualiza.getIdCliente())!=null) {
+            mensajes.setText("Cliente actualizado");
+            cargar();
+        }else{
+        mensajes.setText("No se podido ha actualizar el cliente");
+        }
+      
     }                                         
 
-    private void cargaTablaActionPerformed(java.awt.event.ActionEvent evt) {                                           
-       cargar();
-    }                                          
-
     private void borraActionPerformed(java.awt.event.ActionEvent evt) {                                      
-       Cliente borrar=gestion.delete(campoDNI.getText());
-        if (borrar!=null) {
+       Boolean borrar=gestion.delete(campoDNI.getText());
+        if (borrar!=false) {
             mensajes.setText("Cliente borrado");
+            cargar();
+        }else{
+         mensajes.setText("No se ha podido borrar el cliente.");
         }
     }                                     
 
-//  
-//    public static void main(String args[]) {
-//     
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new Panel().setVisible(true);
-//            }
-//        });
-//    }
 
     // Variables declaration - do not modify                     
     private javax.swing.JButton actualiza;
@@ -329,7 +319,6 @@ public class Panel extends javax.swing.JFrame {
     private javax.swing.JTextField campoFecha;
     private javax.swing.JTextField campoMonitor;
     private javax.swing.JTextField campoNombre;
-    private javax.swing.JButton cargaTabla;
     private javax.swing.JButton inserta;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
