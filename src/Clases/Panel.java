@@ -248,9 +248,10 @@ public class Panel extends javax.swing.JFrame {
 
     private void campoDNIActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
-    }                                        
+    }                                        // Cliente(String dni, String nombre, String apellidos, String nomEntrenador, String direccion, String clase, Date fechaInscripcion) {
 
     private void insertaMouseClicked(java.awt.event.MouseEvent evt) {                                     
+
         //String dni, String nombre, String apellidos, String nomEntrenador, String direccion, String clase, Date fechaInscripcion
 
         Cliente inserta = new Cliente(campoDNI.getText(),
@@ -269,6 +270,7 @@ public class Panel extends javax.swing.JFrame {
             campoFecha.setText("");
             campoMonitor.setText("");
             campoClase.setText("");
+
             mensajes.setText("Cliente insertado");
         } else {
             mensajes.setText("No se ha podido insertar el cliente");
@@ -301,6 +303,7 @@ public class Panel extends javax.swing.JFrame {
     }                                  
 
     private void actualizaActionPerformed(java.awt.event.ActionEvent evt) {                                          
+
         Cliente actualiza = new Cliente(campoDNI.getText(), campoMonitor.getText(), campoDireccion.getText(), campoClase.getText());
         boolean actualizar = gestion.update(actualiza);
         if (actualizar != false) {
@@ -318,11 +321,13 @@ public class Panel extends javax.swing.JFrame {
         }
         cargar();
 
+
     }                                         
 
     private void borraActionPerformed(java.awt.event.ActionEvent evt) {                                      
         Boolean borrar = gestion.delete(campoDNI.getText());
         if (borrar != false) {
+
             mensajes.setText("Cliente borrado");
             campoDNI.setText("");
             cargar();
@@ -330,7 +335,6 @@ public class Panel extends javax.swing.JFrame {
             mensajes.setText("No se ha podido borrar el cliente.");
         }
     }                                     
-
 
     // Variables declaration - do not modify                     
     private javax.swing.JButton actualiza;

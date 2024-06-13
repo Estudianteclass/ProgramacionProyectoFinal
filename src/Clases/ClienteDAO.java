@@ -1,5 +1,6 @@
 package Clases;
 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -7,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.sql.*;
 import java.util.ArrayList;
 
 
@@ -21,7 +24,6 @@ public class ClienteDAO {
 
         this.conexion = conectar();
     }
-
     public Connection conectar() {
         Connection conn = null;
         try {
@@ -35,10 +37,12 @@ public class ClienteDAO {
 
     }
 
+
     public Cliente read(String read) {
         Cliente buscar = null;
         if (read != null && !read.isBlank()) {
             String sql = "SELECT*FROM clientes WHERE dni = ?";
+
             try ( PreparedStatement sentencia = conexion.prepareStatement(sql)) {
 
                 sentencia.setString(1, read);
@@ -51,7 +55,9 @@ public class ClienteDAO {
                     Date alta = rs.getDate(5);
                     String monitor = rs.getString(6);
                     String clase = rs.getString(7);
+
                     buscar = new Cliente(dni, nom, apellido, direccion, alta, monitor, clase);
+
 
                 }
             } catch (SQLException ex) {
@@ -61,6 +67,7 @@ public class ClienteDAO {
         }
         return buscar;
     }
+
 
     public boolean update(Cliente cambiar) {
         boolean actualizado = false;
@@ -95,7 +102,8 @@ public class ClienteDAO {
         return actualizado;
     }
 
-    public boolean delete(String id) {
+    public boolean delete(String id) {  
+    
         boolean borrar = false;
 
         if (id != null && !id.isBlank()) {
@@ -113,8 +121,10 @@ public class ClienteDAO {
         return borrar;
     }
 
+
     public boolean create(Cliente clien) {
         boolean insertado = false;
+
         String sql = "INSERT INTO  clientes values( ?,  ?,  ?,  ?, ?, ? ,?  )";
         try {
             PreparedStatement sentencia = conexion.prepareStatement(sql);
@@ -133,8 +143,8 @@ public class ClienteDAO {
         return insertado;
     }
 
-    public ArrayList<Object[]> mostrarTodos() {
 
+    public ArrayList<Object[]> mostrarTodos() {
         ArrayList<Object[]> listado = new ArrayList<>();
         Cliente insertar = null;
         String sql = "SELECT*FROM clientes";
@@ -147,7 +157,6 @@ public class ClienteDAO {
                 Object[] fila = new Object[7];
                 for (int i = 0; i <= 6; i++) {
                     fila[i] = rs.getObject(i + 1);
-
                 }
                 listado.add(fila);
 
@@ -158,3 +167,7 @@ public class ClienteDAO {
         return listado;
     }
 }
+
+
+    
+ 
