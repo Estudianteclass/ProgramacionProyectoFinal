@@ -99,7 +99,8 @@ public Cliente read(String read) {
         return borrar;
     }
      
-     public void create(Cliente clien) {
+     public boolean create(Cliente clien) {
+        boolean insertado=false;
         String sql = "INSERT INTO  clientes values( ?,  ?,  ?,  ?, ?, ? ,?  )";
         try {
             PreparedStatement sentencia = conexion.prepareStatement(sql);
@@ -111,9 +112,11 @@ public Cliente read(String read) {
             sentencia.setString(6, clien.getNomEntrenador());
             sentencia.setString(7, clien.getClase());
             sentencia.executeUpdate();
+            insertado = true;
         } catch (SQLException ex) {
             System.out.println(ex);
         }
+        return insertado;
     }
 }
 
