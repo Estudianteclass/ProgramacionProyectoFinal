@@ -1,7 +1,17 @@
 package Clases;
 
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.sql.Date;
+import java.util.ArrayList;
 import java.sql.*;
 import java.util.ArrayList;
+
 
 public class ClienteDAO {
 
@@ -27,10 +37,12 @@ public class ClienteDAO {
 
     }
 
-public Cliente read(String read) {
+
+    public Cliente read(String read) {
         Cliente buscar = null;
         if (read != null && !read.isBlank()) {
-            String sql = "SELECT*FROM clientes WHERE dni LIKE ?";
+            String sql = "SELECT*FROM clientes WHERE dni = ?";
+
             try ( PreparedStatement sentencia = conexion.prepareStatement(sql)) {
 
                 sentencia.setString(1, read);
@@ -43,7 +55,9 @@ public Cliente read(String read) {
                     Date alta = rs.getDate(5);
                     String monitor = rs.getString(6);
                     String clase = rs.getString(7);
-                    buscar = new Cliente(dni, nom, apellido, monitor, direccion , clase ,alta);
+
+                    buscar = new Cliente(dni, nom, apellido, direccion, alta, monitor, clase);
+
 
                 }
             } catch (SQLException ex) {
@@ -54,57 +68,71 @@ public Cliente read(String read) {
         return buscar;
     }
 
-    public void update(String id) {
-        Cliente cli = read(id);
-        if (cli != null) {
-            String sql = "UPDATE Clientes " + "SET monitor=?,SET direccion=?,SET clase=?" + "WHERE dni = ?";
 
-            try (PreparedStatement sentencia = conexion.prepareStatement(sql)) {
+    public boolean update(Cliente cambiar) {
+        boolean actualizado = false;
 
-                
-                
-                sentencia.setString(1, cli.getNomEntrenador());
-                sentencia.setString(2, cli.getDireccion());
-                sentencia.setString(3, cli.getClase());
-                sentencia.setString(4, cli.getIdCliente());
-               
+        if (cambiar != null) {
 
-                sentencia.executeUpdate();
+            Cliente cli = read(cambiar.getIdCliente());
 
-            } catch (SQLException ex) {
-                System.out.println("Error al actualizar un cliente.");
+            if (cli != null) {
+                String sql = "UPDATE clientes SET direccion=?,monitor=?,clase=? WHERE dni = ?";
+
+                try ( PreparedStatement sentencia = conexion.prepareStatement(sql)) {
+
+                    sentencia.setString(1, cambiar.getDireccion());
+
+                    sentencia.setString(2, cambiar.getNomEntrenador());
+
+                    sentencia.setString(3, cambiar.getClase());
+
+                    sentencia.setString(4, cambiar.getIdCliente());
+
+                    sentencia.executeUpdate();
+                    actualizado = true;
+
+                } catch (SQLException ex) {
+                    System.out.println("Codigo de error: " + ex.getErrorCode() + ", " + ex.getMessage());
+                }
+
             }
-        }
 
+        }
+        return actualizado;
     }
-     public boolean delete(String id) {
+
+    public boolean delete(String id) {  
+    
         boolean borrar = false;
 
         if (id != null && !id.isBlank()) {
             String sql = "DELETE FROM clientes WHERE dni LIKE ?";
-           
+
             try ( PreparedStatement sentencia = conexion.prepareStatement(sql)) {
-    
+
                 sentencia.setString(1, id);
                 sentencia.executeUpdate();
-                borrar =true;
+                borrar = true;
             } catch (SQLException ex) {
                 System.out.println("Codigo de error: " + ex.getErrorCode() + ", " + ex.getMessage());
             }
         }
         return borrar;
     }
-     
-     public boolean create(Cliente clien) {
-        boolean insertado=false;
+
+
+    public boolean create(Cliente clien) {
+        boolean insertado = false;
+
         String sql = "INSERT INTO  clientes values( ?,  ?,  ?,  ?, ?, ? ,?  )";
         try {
             PreparedStatement sentencia = conexion.prepareStatement(sql);
             sentencia.setString(1, clien.getIdCliente());
             sentencia.setString(2, clien.getNombre());
             sentencia.setString(3, clien.getApellidos());
-            sentencia.setDate(4, clien.getFechaInscripcion());
-            sentencia.setString(5, clien.getDireccion());
+            sentencia.setString(4, clien.getDireccion());
+            sentencia.setDate(5, clien.getFechaInscripcion());
             sentencia.setString(6, clien.getNomEntrenador());
             sentencia.setString(7, clien.getClase());
             sentencia.executeUpdate();
@@ -114,8 +142,9 @@ public Cliente read(String read) {
         }
         return insertado;
     }
-      public ArrayList<Object[]> mostrarTodos() {
 
+
+    public ArrayList<Object[]> mostrarTodos() {
         ArrayList<Object[]> listado = new ArrayList<>();
         Cliente insertar = null;
         String sql = "SELECT*FROM clientes";
@@ -124,14 +153,12 @@ public Cliente read(String read) {
             ResultSet rs = sentencia.executeQuery(sql);
 
             while (rs.next()) {
-                
-                Object[]fila= new Object[7];
+
+                Object[] fila = new Object[7];
                 for (int i = 0; i <= 6; i++) {
-                    fila[i]=rs.getObject(i+1);
-                    
+                    fila[i] = rs.getObject(i + 1);
                 }
                 listado.add(fila);
-  
 
             }
         } catch (SQLException ex) {
