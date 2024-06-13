@@ -18,7 +18,12 @@ public class Cliente implements Comparable<Cliente> {
         this.clase = clase;
         this.fechaInscripcion = fechaInscripcion;
     }
-
+    public Cliente(String dni, String nomEntrenador, String direccion, String clase) {
+        this.dni = dni;
+        this.nomEntrenador = nomEntrenador;
+        this.direccion = direccion;
+        this.clase = clase;
+    }
     public String getIdCliente() {
         return dni;
     }
