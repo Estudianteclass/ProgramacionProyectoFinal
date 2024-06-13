@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
-import java.util.Date;
+import java.sql.Date;
 
 public class ClienteDAO {
 
@@ -97,6 +97,26 @@ public Cliente read(String read) {
             }
         }
         return borrar;
+    }
+     
+     public boolean create(Cliente clien) {
+        boolean insertado=false;
+        String sql = "INSERT INTO  clientes values( ?,  ?,  ?,  ?, ?, ? ,?  )";
+        try {
+            PreparedStatement sentencia = conexion.prepareStatement(sql);
+            sentencia.setString(1, clien.getIdCliente());
+            sentencia.setString(2, clien.getNombre());
+            sentencia.setString(3, clien.getApellidos());
+            sentencia.setDate(4, clien.getFechaInscripcion());
+            sentencia.setString(5, clien.getDireccion());
+            sentencia.setString(6, clien.getNomEntrenador());
+            sentencia.setString(7, clien.getClase());
+            sentencia.executeUpdate();
+            insertado = true;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return insertado;
     }
 }
 
