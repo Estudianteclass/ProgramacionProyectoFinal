@@ -1,3 +1,5 @@
+package Clases;
+
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -262,10 +264,13 @@ public class Panel extends javax.swing.JFrame {
 
     private void campoDNIActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
-    }                                        
+    }                                        // Cliente(String dni, String nombre, String apellidos, String nomEntrenador, String direccion, String clase, Date fechaInscripcion) {
 
     private void insertaMouseClicked(java.awt.event.MouseEvent evt) {                                     
-        Cliente inserta = new Cliente(campoDNI.getText(), campoNombre.getText(), campoApellidos.getText(), campoDireccion.getText(), Date.valueOf(campoFecha.getText()), campoMonitor.getText(), campoClase.getText());
+        Cliente inserta = new Cliente(campoDNI.getText(),
+               campoNombre.getText(), campoApellidos.getText(), campoMonitor.getText(),
+                campoDireccion.getText(), 
+                campoClase.getText(), Date.valueOf(campoFecha.getText()));
 
         if (gestion.create(inserta)==true) {
             mensajes.setText("Cliente insertado");
@@ -286,15 +291,15 @@ public class Panel extends javax.swing.JFrame {
             campoNombre.setText(buscar.getNombre());
             campoApellidos.setText(buscar.getApellidos());
             campoDireccion.setText(buscar.getDireccion());
-            alta = dateFormat.format(buscar.getFechaAlta());
+            alta = dateFormat.format(buscar.getFechaInscripcion());
             campoFecha.setText(alta);
-            campoMonitor.setText(buscar.getMonitor());
+            campoMonitor.setText(buscar.getNomEntrenador());
             campoClase.setText(buscar.getClase());
         }
     }                                  
 
     private void actualizaActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
+        
     }                                         
 
     private void cargaTablaActionPerformed(java.awt.event.ActionEvent evt) {                                           
@@ -302,21 +307,13 @@ public class Panel extends javax.swing.JFrame {
     }                                          
 
     private void borraActionPerformed(java.awt.event.ActionEvent evt) {                                      
-       Cliente borrar=gestion.delete(campoDNI.getText());
-        if (borrar!=null) {
+       boolean borrar=gestion.delete(campoDNI.getText());
+        if (borrar!=false) {
             mensajes.setText("Cliente borrado");
         }
     }                                     
 
-//  
-//    public static void main(String args[]) {
-//     
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new Panel().setVisible(true);
-//            }
-//        });
-//    }
+
 
     // Variables declaration - do not modify                     
     private javax.swing.JButton actualiza;
