@@ -1,11 +1,7 @@
 package Clases;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.ResultSet;
-import java.sql.Date;
+import java.sql.*;
+import java.util.ArrayList;
 
 public class ClienteDAO {
 
@@ -81,17 +77,17 @@ public Cliente read(String read) {
         }
 
     }
-     public Cliente delete(String id) {
-        Cliente borrar = null;
+     public boolean delete(String id) {
+        boolean borrar = false;
 
         if (id != null && !id.isBlank()) {
             String sql = "DELETE FROM clientes WHERE dni LIKE ?";
-            borrar = read(id);
+           
             try ( PreparedStatement sentencia = conexion.prepareStatement(sql)) {
     
                 sentencia.setString(1, id);
                 sentencia.executeUpdate();
-
+                borrar =true;
             } catch (SQLException ex) {
                 System.out.println("Codigo de error: " + ex.getErrorCode() + ", " + ex.getMessage());
             }
@@ -117,6 +113,31 @@ public Cliente read(String read) {
             System.out.println(ex);
         }
         return insertado;
+    }
+      public ArrayList<Object[]> mostrarTodos() {
+
+        ArrayList<Object[]> listado = new ArrayList<>();
+        Cliente insertar = null;
+        String sql = "SELECT*FROM clientes";
+
+        try ( Statement sentencia = conexion.createStatement()) {
+            ResultSet rs = sentencia.executeQuery(sql);
+
+            while (rs.next()) {
+                
+                Object[]fila= new Object[7];
+                for (int i = 0; i <= 6; i++) {
+                    fila[i]=rs.getObject(i+1);
+                    
+                }
+                listado.add(fila);
+  
+
+            }
+        } catch (SQLException ex) {
+            System.out.println("Codigo de error: " + ex.getErrorCode() + ", " + ex.getMessage());
+        }
+        return listado;
     }
 }
 
