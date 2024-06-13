@@ -3,9 +3,6 @@ package Clases;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class Panel extends javax.swing.JFrame {
@@ -248,11 +245,11 @@ public class Panel extends javax.swing.JFrame {
 
     private void campoDNIActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
-    }                                        // Cliente(String dni, String nombre, String apellidos, String nomEntrenador, String direccion, String clase, Date fechaInscripcion) {
+    }                                       
 
     private void insertaMouseClicked(java.awt.event.MouseEvent evt) {                                     
 
-        //String dni, String nombre, String apellidos, String nomEntrenador, String direccion, String clase, Date fechaInscripcion
+        
 
         Cliente inserta = new Cliente(campoDNI.getText(),
                 campoNombre.getText(), campoApellidos.getText(), campoDireccion.getText(),
@@ -330,6 +327,12 @@ public class Panel extends javax.swing.JFrame {
 
             mensajes.setText("Cliente borrado");
             campoDNI.setText("");
+            campoNombre.setText("");
+            campoApellidos.setText("");
+            campoDireccion.setText("");
+            campoFecha.setText("");
+            campoMonitor.setText("");
+            campoClase.setText("");
             cargar();
         } else {
             mensajes.setText("No se ha podido borrar el cliente.");
