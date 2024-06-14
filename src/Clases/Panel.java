@@ -245,28 +245,31 @@ public class Panel extends javax.swing.JFrame {
         // TODO add your handling code here:
     }
 
-    private void insertaMouseClicked(java.awt.event.MouseEvent evt) {
-
-        Cliente inserta = new Cliente(campoDNI.getText(),
-                campoNombre.getText(), campoApellidos.getText(), campoDireccion.getText(),
-                Date.valueOf(campoFecha.getText()),
-                campoMonitor.getText(),
-                campoClase.getText());
-
-        if (gestion.create(inserta) == true) {
-            mensajes.setText("Cliente insertado");
-            cargar();
-            campoDNI.setText("");
-            campoNombre.setText("");
-            campoApellidos.setText("");
-            campoDireccion.setText("");
-            campoFecha.setText("");
-            campoMonitor.setText("");
-            campoClase.setText("");
-
-            mensajes.setText("Cliente insertado");
+  private void insertaMouseClicked(java.awt.event.MouseEvent evt) {
+        if (campoFecha.getText().isEmpty() || campoFecha.getText().isBlank()) {
+            mensajes.setText("No se ha podido insertar el cliente.");
         } else {
-            mensajes.setText("No se ha podido insertar el cliente");
+            Cliente inserta = new Cliente(campoDNI.getText(),
+                    campoNombre.getText(), campoApellidos.getText(), campoDireccion.getText(),
+                    Date.valueOf(campoFecha.getText()),
+                    campoMonitor.getText(),
+                    campoClase.getText());
+
+            if (gestion.create(inserta) == true) {
+                mensajes.setText("Cliente insertado");
+                cargar();
+                campoDNI.setText("");
+                campoNombre.setText("");
+                campoApellidos.setText("");
+                campoDireccion.setText("");
+                campoFecha.setText("");
+                campoMonitor.setText("");
+                campoClase.setText("");
+
+                mensajes.setText("Cliente insertado");
+            } else {
+                mensajes.setText("No se ha podido insertar el cliente");
+            }
         }
 
     }
