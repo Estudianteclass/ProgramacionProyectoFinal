@@ -59,6 +59,7 @@ public class Panel extends javax.swing.JFrame {
         getContentPane().setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
 
         jPanel1.setPreferredSize(new java.awt.Dimension(800, 500));
+        jPanel1.setBackground(new Color(252, 166, 68));
 
         labelNom.setText("Nombre:");
 
