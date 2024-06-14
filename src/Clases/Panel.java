@@ -1,5 +1,6 @@
 package Clases;
 
+import java.awt.Color;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -61,7 +62,8 @@ public class Panel extends javax.swing.JFrame {
         getContentPane().setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
 
         jPanel1.setPreferredSize(new java.awt.Dimension(800, 500));
-
+        jPanel1.setBackground(new Color(252, 166, 68));
+        
         labelNom.setText("Nombre:");
 
         labelApellidos.setText("Apellidos:");
@@ -128,7 +130,7 @@ public class Panel extends javax.swing.JFrame {
                 mensajesActionPerformed(evt);
             }
         });
-
+        
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -138,7 +140,7 @@ public class Panel extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(tabla);
-
+       
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
