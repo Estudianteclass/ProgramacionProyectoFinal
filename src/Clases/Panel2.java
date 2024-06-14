@@ -5,7 +5,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
-public class Panel extends javax.swing.JFrame {
+public class Panel2 extends javax.swing.JFrame {
 
     private String[] columnas = {"DNI", "Nombre", "Apellidos", "Dirección", "Fecha de alta", "Monitor", "Clase"};
     private DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
@@ -13,7 +13,7 @@ public class Panel extends javax.swing.JFrame {
     private ArrayList<Object[]> datos = new ArrayList<>();
     private String opcion;
 
-    public Panel() {
+    public Panel2() {
         initComponents();
         cargar();
         opcion = "insertar";
@@ -383,7 +383,6 @@ public class Panel extends javax.swing.JFrame {
     }//GEN-LAST:event_buscaMouseClicked
 
     private void buscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscaActionPerformed
-        jLabel1mensajes.setText("");
         Visible(false);
         campoDNI.setVisible(true);
         labelDNI.setVisible(true);
@@ -396,13 +395,11 @@ public class Panel extends javax.swing.JFrame {
     }//GEN-LAST:event_insertaMouseClicked
 
     private void insertaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertaActionPerformed
-        jLabel1mensajes.setText("");
         Visible(true);
         opcion = "insertar";
     }//GEN-LAST:event_insertaActionPerformed
 
     private void borraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borraActionPerformed
-         jLabel1mensajes.setText("");
         Visible(false);
         campoDNI.setVisible(true);
         labelDNI.setVisible(true);
@@ -411,7 +408,6 @@ public class Panel extends javax.swing.JFrame {
     }//GEN-LAST:event_borraActionPerformed
 
     private void actualizaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizaActionPerformed
-        jLabel1mensajes.setText("");
         Visible(false);
         campoDireccion.setVisible(true);
         campoMonitor.setVisible(true);
