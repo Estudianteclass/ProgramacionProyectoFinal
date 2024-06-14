@@ -5,7 +5,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
-public class Panel extends javax.swing.JFrame {
+public class Panel2 extends javax.swing.JFrame {
 
     private String[] columnas = {"DNI", "Nombre", "Apellidos", "Dirección", "Fecha de alta", "Monitor", "Clase"};
     private DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
@@ -13,7 +13,7 @@ public class Panel extends javax.swing.JFrame {
     private ArrayList<Object[]> datos = new ArrayList<>();
     private String opcion;
 
-    public Panel() {
+    public Panel2() {
         initComponents();
         cargar();
         opcion = "insertar";
@@ -141,7 +141,7 @@ public class Panel extends javax.swing.JFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
@@ -170,7 +170,7 @@ public class Panel extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        jPanel1.setBackground(new Color(252, 166, 68));
+
         labelNom.setText("Nombre:");
 
         labelApellidos.setText("Apellidos:");
@@ -372,46 +372,42 @@ public class Panel extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>                        
+    }// </editor-fold>//GEN-END:initComponents
 
-    private void campoDNIActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void campoDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoDNIActionPerformed
         // TODO add your handling code here:
-    }                                        
+    }//GEN-LAST:event_campoDNIActionPerformed
 
-    private void buscaMouseClicked(java.awt.event.MouseEvent evt) {                                   
+    private void buscaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscaMouseClicked
         // TODO add your handling code here:
-    }                                  
+    }//GEN-LAST:event_buscaMouseClicked
 
-    private void buscaActionPerformed(java.awt.event.ActionEvent evt) {                                      
-        jLabel1mensajes.setText("");
+    private void buscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscaActionPerformed
         Visible(false);
         campoDNI.setVisible(true);
         labelDNI.setVisible(true);
         opcion = "buscar";
 
-    }                                     
+    }//GEN-LAST:event_buscaActionPerformed
 
-    private void insertaMouseClicked(java.awt.event.MouseEvent evt) {                                     
+    private void insertaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_insertaMouseClicked
 
-    }                                    
+    }//GEN-LAST:event_insertaMouseClicked
 
-    private void insertaActionPerformed(java.awt.event.ActionEvent evt) {                                        
-        jLabel1mensajes.setText("");
+    private void insertaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertaActionPerformed
         Visible(true);
         opcion = "insertar";
-    }                                       
+    }//GEN-LAST:event_insertaActionPerformed
 
-    private void borraActionPerformed(java.awt.event.ActionEvent evt) {                                      
-         jLabel1mensajes.setText("");
+    private void borraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borraActionPerformed
         Visible(false);
         campoDNI.setVisible(true);
         labelDNI.setVisible(true);
         opcion = "borar";
 
-    }                                     
+    }//GEN-LAST:event_borraActionPerformed
 
-    private void actualizaActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        jLabel1mensajes.setText("");
+    private void actualizaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizaActionPerformed
         Visible(false);
         campoDireccion.setVisible(true);
         campoMonitor.setVisible(true);
@@ -422,9 +418,9 @@ public class Panel extends javax.swing.JFrame {
         labelMonitor.setVisible(true);
         labelClase.setVisible(true);
         opcion = "actualizar";
-    }                                         
+    }//GEN-LAST:event_actualizaActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         switch (opcion) {
             case "insertar" -> {
                 insertar();
@@ -439,10 +435,10 @@ public class Panel extends javax.swing.JFrame {
                 borrar();
             }
         }
-    }                                        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
-    // Variables declaration - do not modify                     
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton actualiza;
     private javax.swing.JButton borra;
     private javax.swing.JButton busca;
@@ -467,5 +463,5 @@ public class Panel extends javax.swing.JFrame {
     private javax.swing.JLabel labelNom;
     private javax.swing.JTable tabla;
     private javax.swing.JLabel titulo;
-    // End of variables declaration                   
+    // End of variables declaration//GEN-END:variables
 }
